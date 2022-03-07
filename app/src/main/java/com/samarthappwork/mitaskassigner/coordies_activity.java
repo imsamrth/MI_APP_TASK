@@ -91,7 +91,7 @@ public class coordies_activity extends AppCompatActivity {
 
         // recyclerview setup code
 
-        Query QUERY = FirebaseDatabase.getInstance().getReference("TASKS").child(event_name);
+        //Query QUERY = FirebaseDatabase.getInstance().getReference("ALL_TASKS");
 
         recyclerView = findViewById(R.id.homeactivity_RV);
         recyclerView.setHasFixedSize(true);
@@ -105,7 +105,7 @@ public class coordies_activity extends AppCompatActivity {
         recyclerView.setAdapter( user_adapter);
 
 
-        add_event = this.findViewById(R.id.gallery_activity_add2);
+        add_event = this.findViewById(R.id.floatingActionButton);
         if(LoginedUser.getIs_CG() == "YES"){
             add_event.setVisibility(View.INVISIBLE);
         }

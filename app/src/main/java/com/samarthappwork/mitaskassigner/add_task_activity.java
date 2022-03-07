@@ -150,6 +150,10 @@ public class add_task_activity extends AppCompatActivity {
         reference = rootnode.getReference("TASKS").child(event_name);
 //
         reference.child(new_task_name).setValue(taskdatahelpervalues);
+
+        reference = rootnode.getReference("ALL_TASKS");
+//
+        reference.child(new_task_name).setValue(taskdatahelpervalues);
     }
 
 }
