@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1019944541876",
+    "project_id": "mitaskassigner",
+    "storage_bucket": "mitaskassigner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019944541876:android:17c65bee74afc07a8581e1",
+        "android_client_info": {
+          "package_name": "com.samarthappwork.mitaskassigner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019944541876-odr9fstqb2bssv89s57mvodcneoaelm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQa2ZEy29N1YbQ7cW4A7qM2pFMUOfBpCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019944541876-odr9fstqb2bssv89s57mvodcneoaelm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

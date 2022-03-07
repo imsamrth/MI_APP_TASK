@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_menu_home"
+        android:icon="@drawable/outline_event_24"
+        android:title="" />
+    <item
+        android:id="@+id/bottom_nav_menu_tasks"
+        android:icon="@drawable/outline_person_24"
+        android:title=""
+        />
+    <item android:id="@+id/bottom_nav_menu_notification"
+        android:icon="@drawable/outline_notifications_24"
+        android:title=""
+        />
+
+
+</menu>
