@@ -11,13 +11,8 @@
         android:icon="@drawable/outline_task_20"
         android:title=""
         />
-    <item android:id="@+id/bottom_nav_menu_notification"
-        android:icon="@drawable/outline_gr"
-        android:title=""
-        />
-
-    <item android:id="@+id/bottom_nav_menu_noti"
-        android:icon="@drawable/outline_notifications_24"
+    <item android:id="@+id/bottom_nav_menu_person"
+        android:icon="@drawable/outline_person_24"
         android:title=""
         />
 

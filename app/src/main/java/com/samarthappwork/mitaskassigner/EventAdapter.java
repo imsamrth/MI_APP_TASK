@@ -39,6 +39,7 @@ public class EventAdapter extends FirebaseRecyclerAdapter<New_event, EventAdapte
         holder.department_name.setText(model.getDepartmentId());
         holder.event_name.setText(model.getEvent_name());
         holder.daystogo.setText(model.getTimestamp());
+        holder.ispending.setText("Coming");
         String event_url = model.event_name;
 
         FirebaseDatabase storage = FirebaseDatabase.getInstance();

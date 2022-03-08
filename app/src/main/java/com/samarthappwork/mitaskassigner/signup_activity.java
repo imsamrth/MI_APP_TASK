@@ -57,7 +57,7 @@ public class signup_activity extends AppCompatActivity {
     DatabaseReference reference = rootnode.getReference("USERS");
 
 
-
+    final  static String IS_CG_YES = "NO" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

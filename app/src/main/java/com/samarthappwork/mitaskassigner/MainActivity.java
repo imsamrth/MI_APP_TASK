@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     EventAdapter event_adapter;
 
     FloatingActionButton add_event;
+    final  static String IS_COORDIE_YES = "YES" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         // bottom navigation complete code
 
+
+        Toast.makeText(getApplicationContext(),String.valueOf(LoginedUser.getIs_CG().length()),Toast.LENGTH_SHORT).show();
         bottom_nav_view = this.findViewById(R.id.bottom_nav_view);
         bottom_nav_view.setSelectedItemId(R.id.bottom_nav_menu_home);
         bottom_nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,20 +72,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.bottom_nav_menu_tasks:
 
-                        if(LoginedUser.getIs_CG() == "YES"){
-                            Intent intent_search = new Intent(MainActivity.this, tasks_activity.class);
+                            Toast.makeText(getApplicationContext(),"Task started",Toast.LENGTH_SHORT).show();
+                            Intent intent_search = new Intent(MainActivity.this, Alltask_activity.class);
                             startActivity(intent_search);
-                        }
-                        else {
-                            Intent intent_search = new Intent(MainActivity.this, coordies_activity.class);
-                            startActivity(intent_search);
-                        }
-
 
                         break;
                     case R.id.bottom_nav_menu_notification:
 
-                        Intent intent_notification = new Intent( getApplicationContext(), notification_activity.class);
+                        Intent intent_notification = new Intent( getApplicationContext(), coordies_activity.class);
                         startActivity(intent_notification);
                         present_selected_item = item.getItemId();
                         break;
@@ -111,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         add_event = this.findViewById(R.id.floatingActionButton);
-        if(LoginedUser.getIs_CG() == "YES"){
-            add_event.setVisibility(View.INVISIBLE);
-        }
+        add_event.setVisibility(View.INVISIBLE);
+        if(LoginedUser.getIs_CG().length() == 3) add_event.setVisibility(View.INVISIBLE);
+        else  add_event.setVisibility(View.VISIBLE);
         add_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

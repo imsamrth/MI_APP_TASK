@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class coordies_activity extends AppCompatActivity {
+public class Alltask_activity extends AppCompatActivity {
 
 
     private RecyclerView recyclerView ;
@@ -28,8 +28,11 @@ public class coordies_activity extends AppCompatActivity {
     BottomNavigationView bottom_nav_view;
     Toolbar home_activity_toolbar ;
     int present_selected_item;
+    TaskAdapter task_adapter;
     String event_name ;
-    userhomeadapter user_adapter ;
+    final  static String IS_CG_YES = "NO" ;
+
+    FirebaseRecyclerOptions<New_task> options;
 
     FloatingActionButton add_event;
 
@@ -39,7 +42,7 @@ public class coordies_activity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordies);
+        setContentView(R.layout.activity_main);
 
         // toolbar setup code
 
@@ -47,12 +50,12 @@ public class coordies_activity extends AppCompatActivity {
 
         home_activity_toolbar = findViewById(R.id.home_activity_toolbar);
         setSupportActionBar(home_activity_toolbar);
-        home_activity_toolbar.setTitle("Hi, "+ LoginedUser.getName());
+        home_activity_toolbar.setTitle("EVENT : " + event_name);
 
         // bottom navigation complete code
 
         bottom_nav_view = this.findViewById(R.id.bottom_nav_view);
-        bottom_nav_view.setSelectedItemId(R.id.bottom_nav_menu_notification);
+        bottom_nav_view.setSelectedItemId(R.id.bottom_nav_menu_tasks);
         bottom_nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -62,27 +65,25 @@ public class coordies_activity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.bottom_nav_menu_home:
 
+                        // home_activty_parent_layout.addView(home_activity_toolbar,0);
+                        //   temp_fragment = new home_fragment();
+                        //  present_selected_item = item.getItemId();
+                        //   getSupportFragmentManager().beginTransaction().replace(R.id.post_container, temp_fragment).commit();
+                        present_selected_item = item.getItemId();
 
-                        Intent intent_notification = new Intent( getApplicationContext(), MainActivity.class);
-                        startActivity(intent_notification);
-                            // home_activty_parent_layout.addView(home_activity_toolbar,0);
-                            //   temp_fragment = new home_fragment();
-                            //  present_selected_item = item.getItemId();
-                            //   getSupportFragmentManager().beginTransaction().replace(R.id.post_container, temp_fragment).commit();
-                            present_selected_item = item.getItemId();
+                        Intent intent_search = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent_search);
                         break;
                     case R.id.bottom_nav_menu_tasks:
-
-                        Intent intent_search = new Intent( getApplicationContext(), tasks_activity.class);
-                        startActivity(intent_search);
+                        if(present_selected_item != item.getItemId()){
+                            Intent intent_task = new Intent(getApplicationContext(), tasks_activity.class);
+                            startActivity(intent_task);}
                         break;
                     case R.id.bottom_nav_menu_notification:
 
-
-                        if(present_selected_item != item.getItemId())
-                        {Intent intent_notificat = new Intent( getApplicationContext(), notification_activity.class);
-                        startActivity(intent_notificat);
-                        present_selected_item = item.getItemId();}
+                        Intent intent_notification = new Intent( getApplicationContext(), coordies_activity.class);
+                        startActivity(intent_notification);
+                        present_selected_item = item.getItemId();
                         break;
 
                 }
@@ -96,20 +97,39 @@ public class coordies_activity extends AppCompatActivity {
 
         // recyclerview setup code
 
-        //Query QUERY = FirebaseDatabase.getInstance().getReference("ALL_TASKS");
+        Query QUERY = FirebaseDatabase.getInstance().getReference("TASKS").child(event_name);
 
         recyclerView = findViewById(R.id.homeactivity_RV);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        FirebaseRecyclerOptions<New_user> options = new FirebaseRecyclerOptions.Builder<New_user>().
-                setQuery(FirebaseDatabase.getInstance().getReference().child("USERS")
+
+        if(LoginedUser.getIs_CG().length() == 3){
+           options = new FirebaseRecyclerOptions.Builder<New_task>().
+                    setQuery(FirebaseDatabase.getInstance().getReference().child("TASKS_COORDIES").child(LoginedUser.getPhone())
+                            //.equalTo("8319085865p1")
+                            , New_task.class).build();
+        }else { options = new FirebaseRecyclerOptions.Builder<New_task>().
+                setQuery(FirebaseDatabase.getInstance().getReference().child("ALL_TASKS")
                         //.equalTo("8319085865p1")
-                        , New_user.class).build();
-        user_adapter = new userhomeadapter(options);
-        user_adapter.startListening();
-        recyclerView.setAdapter( user_adapter);
+                        , New_task.class).build();}
+
+        task_adapter = new TaskAdapter( options);
+        task_adapter.startListening();
+        recyclerView.setAdapter(task_adapter);
 
 
+        add_event = this.findViewById(R.id.floatingActionButton);
+        if(LoginedUser.getIs_CG().length() == 3){
+            add_event.setVisibility(View.INVISIBLE);
+        }
+        add_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), add_task_activity.class);
+                intent.putExtra("event_name", event_name);
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 

@@ -1,7 +1,10 @@
 package com.samarthappwork.mitaskassigner;
 
+
 public class New_user {
     String name,is_cordie,email,password,phone,department;
+
+    final  static String IS_Coordie_YES = "YES" ;
 
     public New_user(String name, String email, String password, String phone , String department) {
         this.name = name;
@@ -9,7 +12,7 @@ public class New_user {
         this.password = password;
         this.phone = phone ;
         this.department = department ;
-        this.is_cordie = "YES" ;
+        this.is_cordie = IS_Coordie_YES;
 
 
     }

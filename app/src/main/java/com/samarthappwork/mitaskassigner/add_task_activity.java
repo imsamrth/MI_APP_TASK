@@ -57,7 +57,7 @@ public class add_task_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_add_task);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         name_text = this.findViewById(R.id.edit_text_Name);
         description_text = this.findViewById(R.id.edit_text_descripton);

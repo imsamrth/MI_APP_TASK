@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -38,6 +39,7 @@ public class Event_activity extends AppCompatActivity {
     int present_selected_item;
     TaskAdapter task_adapter;
     String event_name ;
+    final  static String IS_CG_YES = "NO" ;
 
     FloatingActionButton add_event;
 
@@ -55,47 +57,12 @@ public class Event_activity extends AppCompatActivity {
 
         home_activity_toolbar = findViewById(R.id.home_activity_toolbar);
         setSupportActionBar(home_activity_toolbar);
-        home_activity_toolbar.setTitle("Hi, "+ LoginedUser.getName());
+        home_activity_toolbar.setTitle("EVENT : " + event_name);
 
         // bottom navigation complete code
 
         bottom_nav_view = this.findViewById(R.id.bottom_nav_view);
-        bottom_nav_view.setSelectedItemId(R.id.bottom_nav_menu_home);
-        bottom_nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
-
-                switch (item.getItemId()) {
-                    case R.id.bottom_nav_menu_home:
-                        if(present_selected_item != item.getItemId())
-                            // home_activty_parent_layout.addView(home_activity_toolbar,0);
-                            //   temp_fragment = new home_fragment();
-                            //  present_selected_item = item.getItemId();
-                            //   getSupportFragmentManager().beginTransaction().replace(R.id.post_container, temp_fragment).commit();
-                            present_selected_item = item.getItemId();
-                        break;
-                    case R.id.bottom_nav_menu_tasks:
-
-                        Intent intent_search = new Intent(Event_activity.this, tasks_activity.class);
-                        startActivity(intent_search);
-                        break;
-                    case R.id.bottom_nav_menu_notification:
-
-                        Intent intent_notification = new Intent( getApplicationContext(), notification_activity.class);
-                        startActivity(intent_notification);
-                        present_selected_item = item.getItemId();
-                        break;
-
-                }
-
-
-                return true;
-            }
-
-
-        });
+        bottom_nav_view.setVisibility(View.INVISIBLE);
 
         // recyclerview setup code
 
@@ -113,8 +80,8 @@ public class Event_activity extends AppCompatActivity {
         recyclerView.setAdapter(task_adapter);
 
 
-        add_event = this.findViewById(R.id.gallery_activity_add2);
-        if(LoginedUser.getIs_CG() == "YES"){
+        add_event = this.findViewById(R.id.floatingActionButton);
+        if(LoginedUser.getIs_CG().length() == 3){
             add_event.setVisibility(View.INVISIBLE);
         }
         add_event.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +99,7 @@ public class Event_activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu,menu);
+        menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.outline_person_24));
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -140,7 +108,9 @@ public class Event_activity extends AppCompatActivity {
         //todo go to profile section and icrease icon size
         switch (item.getItemId()){
             case R.id.toolbar_menu_chat :
-                Toast.makeText(this,"you clicked messages",Toast.LENGTH_SHORT).show();
+
+                Intent intent_notification = new Intent( getApplicationContext(), coordies_activity.class);
+                startActivity(intent_notification);
                 break;
         }
         return super.onOptionsItemSelected(item);
